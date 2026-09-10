@@ -12,10 +12,13 @@ while True:
     # Handling invalid inputs
     # Check if input contains only digits
     # Reject negative numbers
-    if not stock_input.isdigit() or stock_input < 0:
+    if not stock_input.isdigit() or int(stock_input) < 0:
         print("Error: Invalid input, please enter a positive whole number.")
 
         continue
     
     # Convert input to int if valid
     stock = int(stock_input)
+
+    # Keep running total of inventory, add valid stock
+    inventory += stock
