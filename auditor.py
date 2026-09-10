@@ -1,5 +1,6 @@
 # Initialize the inventory to zero in the start
 inventory = 0
+failed_entries = 0
 
 # Run in a continuous loop asking user to enter a stock quantity, until the user types quit.
 while True:
@@ -14,7 +15,8 @@ while True:
     # Reject negative numbers
     if not stock_input.isdigit() or int(stock_input) < 0:
         print("Error: Invalid input, please enter a positive whole number.")
-
+        failed_entries += 1
+        
         continue
     
     # Convert input to int if valid
@@ -28,3 +30,8 @@ while True:
         print("ALERT: Inventory exceeds 500 units!")
 
         break
+
+# Inventory report
+print("\nInventory Report:")
+print(f"Total Units Processed: {inventory}")
+print(f"Number of Failed/Rejected Entries: {failed_entries}")
