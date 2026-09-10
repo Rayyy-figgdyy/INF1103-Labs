@@ -9,12 +9,13 @@ while True:
     if stock_input.lower() == "quit":
         break
 
-    # Convert input to int
-    stock = int(stock_input)
-
     # Handling invalid inputs
     # Check if input contains only digits
-    if not stock_input.isdigit():
-        print("Error: Invalid input, please enter a whole number.")
+    # Reject negative numbers
+    if not stock_input.isdigit() or stock_input < 0:
+        print("Error: Invalid input, please enter a positive whole number.")
 
         continue
+    
+    # Convert input to int if valid
+    stock = int(stock_input)
