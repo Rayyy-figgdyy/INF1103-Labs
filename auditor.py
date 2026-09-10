@@ -11,3 +11,10 @@ while True:
 
     # Convert input to int
     stock = int(stock_input)
+
+    # Handling invalid inputs
+    # Check if input contains only digits
+    if not stock_input.isdigit():
+        print("Error: Invalid input, please enter a whole number.")
+
+        continue
