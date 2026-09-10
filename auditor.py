@@ -9,3 +9,5 @@ while True:
     if stock_input.lower() == "quit":
         break
 
+    # Convert input to int
+    stock = int(stock_input)
