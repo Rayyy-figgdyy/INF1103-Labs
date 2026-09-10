@@ -22,3 +22,9 @@ while True:
 
     # Keep running total of inventory, add valid stock
     inventory += stock
+
+    # Overstock alert
+    if inventory > 500:
+        print("ALERT: Inventory exceeds 500 units!")
+
+        break
