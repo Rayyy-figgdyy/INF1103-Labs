@@ -1,0 +1,37 @@
+# Initialize the inventory to zero in the start
+inventory = 0
+failed_entries = 0
+
+# Run in a continuous loop asking user to enter a stock quantity, until the user types quit.
+while True:
+    stock_input = input("Enter stock quantity (or enter 'quit' to exit program): ")
+
+    # Exit the program if user types quit
+    if stock_input.lower() == "quit":
+        break
+
+    # Handling invalid inputs
+    # Check if input contains only digits
+    # Reject negative numbers
+    if not stock_input.isdigit() or int(stock_input) < 0:
+        print("Error: Invalid input, please enter a positive whole number.")
+        failed_entries += 1
+        
+        continue
+    
+    # Convert input to int if valid
+    stock = int(stock_input)
+
+    # Keep running total of inventory, add valid stock
+    inventory += stock
+
+    # Overstock alert
+    if inventory > 500:
+        print("ALERT: Inventory exceeds 500 units!")
+
+        break
+
+# Inventory report
+print("\nInventory Report:")
+print(f"Total Units Processed: {inventory}")
+print(f"Number of Failed/Rejected Entries: {failed_entries}")
