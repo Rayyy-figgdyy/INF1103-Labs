@@ -31,6 +31,10 @@ def process_delivery(current_total, new_value):
     return new_total
 
 
+def calculate_tax(amount):
+    tax = amount * 0.1
+    
+
 def main():
     # Initialize the inventory to zero in the start
     inventory = 0
