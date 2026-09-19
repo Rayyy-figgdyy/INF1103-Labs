@@ -1,37 +1,56 @@
-# Initialize the inventory to zero in the start
-inventory = 0
-failed_entries = 0
+# Global Constants
+MAX_CAPACITY = 500
 
-# Run in a continuous loop asking user to enter a stock quantity, until the user types quit.
-while True:
+def valid_input():
     stock_input = input("Enter stock quantity (or enter 'quit' to exit program): ")
 
     # Exit the program if user types quit
     if stock_input.lower() == "quit":
-        break
+        return "quit"
 
     # Handling invalid inputs
     # Check if input contains only digits
     # Reject negative numbers
     if not stock_input.isdigit() or int(stock_input) < 0:
         print("Error: Invalid input, please enter a positive whole number.")
-        failed_entries += 1
-        
-        continue
+        return "invalid number"
     
     # Convert input to int if valid
     stock = int(stock_input)
+    return stock
 
-    # Keep running total of inventory, add valid stock
-    inventory += stock
 
-    # Overstock alert
-    if inventory > 500:
-        print("ALERT: Inventory exceeds 500 units!")
+def inventory_report(inventory_units, failed_entries):
+    print("\nInventory Report:")
+    print(f"Total Units Processed: {inventory_units}")
+    print(f"Number of Failed/Rejected Entries: {failed_entries}")
 
-        break
 
-# Inventory report
-print("\nInventory Report:")
-print(f"Total Units Processed: {inventory}")
-print(f"Number of Failed/Rejected Entries: {failed_entries}")
+def main():
+    # Initialize the inventory to zero in the start
+    inventory = 0
+    failed_entries = 0
+    exit_program = False
+    # Run in a continuous loop asking user to enter a stock quantity, until the user types quit.
+    while not exit_program:
+        # User input
+        valid_stock = valid_input()
+        # Keep running total of inventory, add valid stock
+        if valid_stock == "quit":
+            exit_program = True
+            inventory_report(inventory, failed_entries)
+
+        elif valid_stock == "invalid number":
+            failed_entries += 1
+        else:
+            inventory += valid_stock
+
+        # Overstock alert
+        if inventory > MAX_CAPACITY:
+            print("ALERT: Inventory exceeds 500 units!")
+            inventory_report(inventory, failed_entries)
+            break
+
+# Program Entry Point
+if __name__=="__main__":
+    main()
