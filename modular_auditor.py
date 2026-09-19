@@ -20,7 +20,7 @@ def get_valid_input():
     return stock
 
 
-def inventory_report(inventory_units, failed_entries):
+def generate_report(inventory_units, failed_entries):
     print("\nInventory Report:")
     print(f"Total Deliveries Processed: {inventory_units}")
     print(f"Number of Failed/Rejected Entries: {failed_entries}")
@@ -33,31 +33,41 @@ def process_delivery(current_total, new_value):
 
 def calculate_tax(amount):
     tax = amount * 0.1
-    
+    return tax
 
 def main():
     # Initialize the inventory to zero in the start
     inventory = 0
     failed_entries = 0
-    exit_program = False
+    deliveries_processed = 0
     # Run in a continuous loop asking user to enter a stock quantity, until the user types quit.
-    while not exit_program:
+    while True:
         # User input
         valid_stock = get_valid_input()
         # Keep running total of inventory, add valid stock
         if valid_stock == "quit":
-            exit_program = True
-            inventory_report(inventory, failed_entries)
+            generate_report(inventory, failed_entries)
+            break
 
+        # Count invalid entries
         elif valid_stock == "invalid number":
             failed_entries += 1
+
+        # Process valid delivery
         else:
-            inventory += valid_stock
+            # Update inventory
+            inventory = process_delivery(inventory, valid_stock)
+
+            # Calculate tax for delivery
+            tax = calculate_tax(valid_stock)
+
+            # Count valid delivery
+            deliveries_processed += 1
 
         # Overstock alert
         if inventory > MAX_CAPACITY:
             print("ALERT: Inventory exceeds 500 units!")
-            inventory_report(inventory, failed_entries)
+            generate_report(inventory, failed_entries)
             break
 
 
