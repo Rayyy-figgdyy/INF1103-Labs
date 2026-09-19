@@ -1,7 +1,7 @@
 # Global Constants
 MAX_CAPACITY = 500
 
-def valid_input():
+def get_valid_input():
     stock_input = input("Enter stock quantity (or enter 'quit' to exit program): ")
 
     # Exit the program if user types quit
@@ -22,8 +22,13 @@ def valid_input():
 
 def inventory_report(inventory_units, failed_entries):
     print("\nInventory Report:")
-    print(f"Total Units Processed: {inventory_units}")
+    print(f"Total Deliveries Processed: {inventory_units}")
     print(f"Number of Failed/Rejected Entries: {failed_entries}")
+
+
+def process_delivery(current_total, new_value): 
+    new_total = current_total + new_value
+    return new_total
 
 
 def main():
@@ -34,7 +39,7 @@ def main():
     # Run in a continuous loop asking user to enter a stock quantity, until the user types quit.
     while not exit_program:
         # User input
-        valid_stock = valid_input()
+        valid_stock = get_valid_input()
         # Keep running total of inventory, add valid stock
         if valid_stock == "quit":
             exit_program = True
@@ -50,6 +55,7 @@ def main():
             print("ALERT: Inventory exceeds 500 units!")
             inventory_report(inventory, failed_entries)
             break
+
 
 # Program Entry Point
 if __name__=="__main__":
