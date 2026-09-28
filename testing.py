@@ -5,9 +5,7 @@ INVENTORY_FILE = "inventory.txt"
 
 def get_valid_input():
     # Get product name
-    prod_name = input(
-        "Enter Product Name (or enter 'quit' to exit program): "
-    )
+    prod_name = input("Enter Product Name (or enter 'quit' to exit program): ")
 
     # Exit the program if user types quit
     if prod_name.lower() == "quit":
@@ -103,7 +101,7 @@ def main():
 
     # Load previous inventory and transaction history
     inventory, transaction_history = load_inventory()
-    
+
     # Show transaction history
     print(f"Current inventory: {inventory} units")
     print(f"Previous transactions: ")

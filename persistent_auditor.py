@@ -2,23 +2,30 @@
 MAX_CAPACITY = 500
 INVENTORY_FILE = "inventory.txt"
 
+
 def get_valid_input():
-    stock_input = input("Enter stock quantity (or enter 'quit' to exit program): ")
+    # Get product name
+    prod_name = input("Enter Product Name (or enter 'quit' to exit program): ")
 
     # Exit the program if user types quit
-    if stock_input.lower() == "quit":
+    if prod_name.lower() == "quit":
         return "quit"
+
+    # Get quantity
+    quantity_input = input("Enter Quantity: ")
 
     # Handling invalid inputs
     # Check if input contains only digits
     # Reject negative numbers
-    if not stock_input.isdigit() or int(stock_input) < 0:
-        print("Error: Invalid input, please enter a positive whole number.")
+    if not quantity_input.isdigit() or int(quantity_input) < 0:
+        print("Error: Invalid quantity, please enter a positive whole number.")
         return "invalid number"
-    
-    # Convert input to int if valid
-    stock = int(stock_input)
-    return stock
+
+    # Convert quantity to int
+    quantity = int(quantity_input)
+
+    # Return product name and quantity
+    return prod_name, quantity
 
 
 def generate_report(inventory_units, failed_entries):
@@ -116,14 +123,29 @@ def main():
 
         # Process valid delivery
         else:
+            # Separate product name and quantity
+            product_name = valid_stock[0]
+            quantity = valid_stock[1]
+
             # Update inventory
-            inventory = process_delivery(inventory, valid_stock)
+            inventory = process_delivery(inventory, quantity)
+
+            # Add entry to transaction history
+            transaction_entry = [next_product_id, product_name, quantity]
+            transaction_history.append(transaction_entry)
+            print("\nNew Order Added:")
+            print(f"{next_product_id}, {product_name}, {quantity}")
+            next_product_id += 1
 
             # Calculate tax for delivery
-            tax = calculate_tax(valid_stock)
+            tax = calculate_tax(valid_stock[1])
 
             # Count valid delivery
             deliveries_processed += 1
+
+            # print(f"Delivery accepted: {valid_stock[0]}, {valid_stock[1]} units")
+            # print(f"Tax for this delivery: ${tax:.2f}")
+            print(f"Current inventory: {inventory} units\n")
 
         # Overstock alert
         if inventory > MAX_CAPACITY:
