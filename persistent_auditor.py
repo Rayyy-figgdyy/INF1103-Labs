@@ -85,6 +85,14 @@ def load_inventory():
         return 0, []
 
 
+def save_inventory(inventory, transaction_history):
+    # Saves the current inventory total and transaction history to inventory.txt.
+    with open(INVENTORY_FILE, "w") as file:
+        file.write(f"Total: {inventory}\n")
+        history = ",".join(str(value) for value in transaction_history)
+        file.write(f"History: {history}")
+
+
 def main():
 
     failed_entries = 0
@@ -114,7 +122,13 @@ def main():
 
         # User quit 
         if valid_stock == "quit":
+
+            # Save inventory and transaction history
+            save_inventory(inventory, transaction_history)
+
+            # Generate report
             generate_report(inventory, failed_entries)
+
             break
 
         # Count invalid entries
@@ -150,7 +164,12 @@ def main():
         # Overstock alert
         if inventory > MAX_CAPACITY:
             print("ALERT: Inventory exceeds 500 units!")
+
+            # Save before exiting so the latest transaction is not lost
+            save_inventory(inventory, transaction_history)
+
             generate_report(inventory, failed_entries)
+            
             break
 
 
