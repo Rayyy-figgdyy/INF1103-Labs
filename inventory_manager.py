@@ -3,6 +3,26 @@ import os
 
 INVENTORY_FILE = "inventory.json"
 
+def load_inventory():
+
+    if os.path.exists(INVENTORY_FILE):
+        print("inventory.json found.")
+
+        with open(INVENTORY_FILE, "r") as file:
+            inventory = json.load(file)
+
+        print("Inventory loaded successfully.")
+    
+    else:
+        print("inventory.json not found.")
+        print("Starting with empty inventory.")
+
+        inventory = {
+            "products": [],           
+            "transactions": [] 
+        }
+
+    return inventory
 
 def add_product(inventory):
     print("\nAdd New Product")
@@ -106,10 +126,7 @@ def display_all(inventory):
 
 
 def main():
-    inventory = {
-            "products": [],           
-            "transactions": [] 
-        }
+    inventory = load_inventory()
 
     while True:
         print("\n----------- MENU -----------")
