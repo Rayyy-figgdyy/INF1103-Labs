@@ -3,6 +3,7 @@ import os
 
 INVENTORY_FILE = "inventory.json"
 
+
 def load_inventory():
 
     if os.path.exists(INVENTORY_FILE):
@@ -23,6 +24,14 @@ def load_inventory():
         }
 
     return inventory
+
+
+def save_inventory(inventory):
+    with open(INVENTORY_FILE, "w") as file:
+        json.dump(inventory, file, indent=4)
+
+    print("Inventory saved successfully to inventory.json.")
+
 
 def add_product(inventory):
     print("\nAdd New Product")
@@ -154,9 +163,11 @@ def main():
 
         elif option == "5":
             print("Saving inventory...")
+            save_inventory(inventory)
 
         elif option == "6":
             print("Saving inventory before exit...")
+            save_inventory(inventory)
             print("Thank you for using Inventory Management System.")
             print("Program terminated.")
             break

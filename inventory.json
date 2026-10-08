@@ -1,0 +1,44 @@
+{
+    "products": [
+        {
+            "id": "P001",
+            "name": "Laptop",
+            "price": 1500.0,
+            "stock": 30
+        },
+        {
+            "id": "P002",
+            "name": "Mouse",
+            "price": 35.5,
+            "stock": 40
+        },
+        {
+            "id": "P003",
+            "name": "Keyboard",
+            "price": 79.99,
+            "stock": 60
+        }
+    ],
+    "transactions": [
+        {
+            "type": "ADD",
+            "product_id": "P001",
+            "amount": 30
+        },
+        {
+            "type": "ADD",
+            "product_id": "P002",
+            "amount": 55
+        },
+        {
+            "type": "ADD",
+            "product_id": "P003",
+            "amount": 60
+        },
+        {
+            "type": "UPDATE",
+            "product_id": "P002",
+            "amount": -15
+        }
+    ]
+}
