@@ -3,6 +3,7 @@ import os
 
 INVENTORY_FILE = "inventory.json"
 
+# Product Class
 class Product:
     """Represents one product and manages its stock."""
 
@@ -12,20 +13,17 @@ class Product:
         self.__price = float(price)
         self.__stock = int(stock)
 
-    @property
     def product_id(self):
         return self.__product_id
 
-    @property
     def name(self):
         return self.__name
 
-    @property
     def stock(self):
         return self.__stock
 
+    # Update stock to new quantity, return the amount changed
     def update_stock(self, quantity):
-        """Set the stock to a new quantity; return the amount changed."""
         if quantity < 0:
             raise ValueError("Stock cannot be negative.")
         change = quantity - self.__stock
@@ -33,17 +31,76 @@ class Product:
         return change
 
     def display_information(self):
-        print(f"ID: {self.__product_id} | Name: {self.__name} | "
-              f"Price: ${self.__price:.2f} | Stock: {self.__stock}")
+        print(
+            f"ID: {self.__product_id}"
+            f"Name: {self.__name}"
+            f"Price: ${self.__price:.2f}"
+            f"Stock: {self.__stock}"
+        )
 
+    # Convert object to dict
     def to_dict(self):
-        """Convert a Product object into JSON-compatible data."""
         return {
             "id": self.__product_id,
             "name": self.__name,
             "price": self.__price,
             "stock": self.__stock
         }
+
+class Inventory:
+    def __init__(self):
+        self.__products = []
+        self.__transactions = []
+
+    def add_product(self, product, record_transaction=True):
+        if self.search_product(product.product_id) is not None:
+            return False
+        self.__products.append(product)
+        if record_transaction:
+            self.__transactions.append({
+                "type": "ADD",
+                "product_id": product.product_id,
+                "amount": product.stock
+            })
+        return True
+
+    def search_product(self, product_id):
+        for product in self.__products:
+            if product.product_id == product_id:
+                return product
+        return None
+
+    def update_stock(self, product_id, quantity):
+        product = self.search_product(product_id)
+        if product is None:
+            return False
+        change = product.update_stock(quantity)
+        self.__transactions.append({
+            "type": "UPDATE",
+            "product_id": product_id,
+            "amount": change
+        })
+        return True
+
+    def display_all(self):
+        print("\nCurrent Inventory")
+        print("-" * 48)
+        if not self.__products:
+            print("Inventory is empty.")
+        else:
+            for product in self.__products:
+                product.display_information()
+        print("-" * 48)
+
+    # convert object to dict
+    def to_dict(self):
+        return {
+            "products": [product.to_dict() for product in self.__products],
+            "transactions": self.__transactions
+        }
+
+    def load_transactions(self, transactions):
+        self.__transactions = list(transactions)
 
 
 def load_inventory():
