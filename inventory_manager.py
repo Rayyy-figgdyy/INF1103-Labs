@@ -3,6 +3,48 @@ import os
 
 INVENTORY_FILE = "inventory.json"
 
+class Product:
+    """Represents one product and manages its stock."""
+
+    def __init__(self, product_id, name, price, stock):
+        self.__product_id = product_id
+        self.__name = name
+        self.__price = float(price)
+        self.__stock = int(stock)
+
+    @property
+    def product_id(self):
+        return self.__product_id
+
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def stock(self):
+        return self.__stock
+
+    def update_stock(self, quantity):
+        """Set the stock to a new quantity; return the amount changed."""
+        if quantity < 0:
+            raise ValueError("Stock cannot be negative.")
+        change = quantity - self.__stock
+        self.__stock = quantity
+        return change
+
+    def display_information(self):
+        print(f"ID: {self.__product_id} | Name: {self.__name} | "
+              f"Price: ${self.__price:.2f} | Stock: {self.__stock}")
+
+    def to_dict(self):
+        """Convert a Product object into JSON-compatible data."""
+        return {
+            "id": self.__product_id,
+            "name": self.__name,
+            "price": self.__price,
+            "stock": self.__stock
+        }
+
 
 def load_inventory():
 
@@ -122,6 +164,10 @@ def search_product(inventory):
 def display_all(inventory):
     print("\nCurrent Inventory")
     print("-" * 48)
+
+    if not inventory["products"]:
+        print("Inventory is empty.")
+        return
 
     for product in inventory["products"]:
         print(

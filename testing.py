@@ -4,6 +4,39 @@ import os
 INVENTORY_FILE = "inventory.json"
 
 
+class Product:
+    def __init__(self, productID, name, price, stock):
+        self.__productID = productID
+        self.__name = name
+        self.__price = float(price)
+        self.__stock = int(stock)
+
+    def update_stock(self, stock):
+        self.__stock = int(stock)
+        
+    def display_information(self):
+        print(f"Product ID: {self.__productID}, Name: {self.__name}, Price: {self.__price}, Stock: {self.__stock}")
+
+
+class Inventory:
+    def __init__(self):
+        self.__products = []
+        self.__transactions = []
+
+    def add_product(self, product):
+        self.__products.append(product)
+
+    def search_product(self, productID):
+        for product in self.__products:
+            if product.productID == productID:
+                return product
+        print("Product not found!")
+        return None
+
+    def display_products(self):
+        for product in self.__products:
+            print(product)
+
 def load_inventory():
 
     if os.path.exists(INVENTORY_FILE):
@@ -18,12 +51,7 @@ def load_inventory():
         print("inventory.json not found.")
         print("Starting with empty inventory.")
 
-        inventory = {
-            "products": [],           
-            "transactions": [] 
-        }
-
-    return inventory
+        inventory =     Inventory()
 
 
 def save_inventory(inventory):
@@ -150,7 +178,7 @@ def main():
         option = input("Enter option: ")
 
         if option == "1":
-            display_all(inventory)
+            
 
         elif option == "2":
             add_product(inventory)

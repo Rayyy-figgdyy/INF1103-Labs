@@ -17,6 +17,12 @@
             "name": "Keyboard",
             "price": 79.99,
             "stock": 60
+        },
+        {
+            "id": "P004",
+            "name": "Headphone",
+            "price": 129.0,
+            "stock": 50
         }
     ],
     "transactions": [
@@ -39,6 +45,11 @@
             "type": "UPDATE",
             "product_id": "P002",
             "amount": -15
+        },
+        {
+            "type": "ADD",
+            "product_id": "P004",
+            "amount": 50
         }
     ]
 }
