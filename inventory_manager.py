@@ -13,12 +13,19 @@ class Product:
         self.__price = float(price)
         self.__stock = int(stock)
 
+    @property
     def product_id(self):
         return self.__product_id
 
+    @property
     def name(self):
         return self.__name
 
+    @property
+    def price(self):
+        return self.__price
+    
+    @property
     def stock(self):
         return self.__stock
 
@@ -32,9 +39,9 @@ class Product:
 
     def display_information(self):
         print(
-            f"ID: {self.__product_id}"
-            f"Name: {self.__name}"
-            f"Price: ${self.__price:.2f}"
+            f"ID: {self.__product_id} | "
+            f"Name: {self.__name} | "
+            f"Price: ${self.__price:.2f} | "
             f"Stock: {self.__stock}"
         )
 

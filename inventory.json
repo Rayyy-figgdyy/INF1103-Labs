@@ -10,7 +10,7 @@
             "id": "P002",
             "name": "Mouse",
             "price": 35.5,
-            "stock": 40
+            "stock": 50
         },
         {
             "id": "P003",
@@ -23,6 +23,12 @@
             "name": "Headphone",
             "price": 129.0,
             "stock": 50
+        },
+        {
+            "id": "P005",
+            "name": "USB-C Cable",
+            "price": 15.0,
+            "stock": 85
         }
     ],
     "transactions": [
@@ -50,6 +56,16 @@
             "type": "ADD",
             "product_id": "P004",
             "amount": 50
+        },
+        {
+            "type": "ADD",
+            "product_id": "P005",
+            "amount": 85
+        },
+        {
+            "type": "UPDATE",
+            "product_id": "P002",
+            "amount": 10
         }
     ]
 }
