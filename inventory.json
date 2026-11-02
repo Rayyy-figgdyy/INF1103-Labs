@@ -29,6 +29,12 @@
             "name": "USB-C Cable",
             "price": 15.0,
             "stock": 85
+        },
+        {
+            "id": "P006",
+            "name": "Laptop Stand",
+            "price": 33.0,
+            "stock": 120
         }
     ],
     "transactions": [
@@ -66,6 +72,11 @@
             "type": "UPDATE",
             "product_id": "P002",
             "amount": 10
+        },
+        {
+            "type": "ADD",
+            "product_id": "P006",
+            "amount": 120
         }
     ]
 }
