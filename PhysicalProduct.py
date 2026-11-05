@@ -8,7 +8,8 @@ class PhysicalProduct(Product, CanBeShipped):
     def __init__(self, product_id, name, price, stock, weight):
         super().__init__(product_id, name, price, stock)
         self.__weight = float(weight)
-
+        if self.__weight < 0:
+            raise ValueError("Weight cannot be negative.")
 
     @property
     def weight(self):
@@ -22,7 +23,7 @@ class PhysicalProduct(Product, CanBeShipped):
         return "This product requires physical shipping."
 
     def calculate_shipping_cost(self):
-        # Simple lab example: SGD 2 per kilogram.
+        # $2 per kg
         return self.__weight * 2.0
 
     def to_dict(self):

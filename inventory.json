@@ -4,43 +4,73 @@
             "id": "P001",
             "name": "Laptop",
             "price": 1500.0,
-            "stock": 30
+            "stock": 30,
+            "type": "physical",
+            "weight": 0.0
         },
         {
             "id": "P002",
             "name": "Mouse",
             "price": 35.5,
-            "stock": 50
+            "stock": 50,
+            "type": "physical",
+            "weight": 0.0
         },
         {
             "id": "P003",
             "name": "Keyboard",
             "price": 79.99,
-            "stock": 60
+            "stock": 60,
+            "type": "physical",
+            "weight": 0.0
         },
         {
             "id": "P004",
             "name": "Headphone",
             "price": 129.0,
-            "stock": 50
+            "stock": 50,
+            "type": "physical",
+            "weight": 0.0
         },
         {
             "id": "P005",
             "name": "USB-C Cable",
             "price": 15.0,
-            "stock": 85
+            "stock": 85,
+            "type": "physical",
+            "weight": 0.0
         },
         {
             "id": "P006",
             "name": "Laptop Stand",
             "price": 33.0,
-            "stock": 120
+            "stock": 120,
+            "type": "physical",
+            "weight": 0.0
         },
         {
             "id": "P007",
             "name": "Wired Earpiece (Type C)",
             "price": 12.0,
-            "stock": 123
+            "stock": 123,
+            "type": "physical",
+            "weight": 0.0
+        },
+        {
+            "id": "P008",
+            "name": "Cat Sleeping Image",
+            "price": 2.0,
+            "stock": 67,
+            "type": "digital",
+            "download_size": 1.0
+        },
+        {
+            "id": "P009",
+            "name": "Phone Cooler",
+            "price": 50.0,
+            "stock": 78,
+            "type": "physical",
+            "weight": 0.55
         }
     ],
     "transactions": [
@@ -88,6 +118,16 @@
             "type": "ADD",
             "product_id": "P007",
             "amount": 123
+        },
+        {
+            "type": "ADD",
+            "product_id": "P008",
+            "amount": 67
+        },
+        {
+            "type": "ADD",
+            "product_id": "P009",
+            "amount": 78
         }
     ]
 }

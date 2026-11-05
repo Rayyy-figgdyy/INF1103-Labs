@@ -3,6 +3,7 @@ import os
 from Inventory import Inventory
 from PhysicalProduct import PhysicalProduct
 from DigitalProduct import DigitalProduct
+from CanBeShipped import CanBeShipped
 
 INVENTORY_FILE = "inventory.json"
 
@@ -17,6 +18,7 @@ def load_inventory():
             data = json.load(file)
 
         for item in data.get("products", []):
+
             product_type = item.get("type", "physical")
 
             if product_type == "physical":
@@ -41,9 +43,15 @@ def load_inventory():
                 print(f"Unknown product type: {product_type}")
                 continue
 
-            inventory.add_product(product, record_transaction = False)
+            inventory.add_product(
+                product,
+                record_transaction=False
+            )
 
-        inventory.load_transactions(data.get("transactions", []))
+        inventory.load_transactions(
+            data.get("transactions", [])
+        )
+
         print("Inventory loaded successfully.")
 
     else:
@@ -124,6 +132,21 @@ def search_product_menu(inventory):
     print(product.get_fulfilment_info())
     print("-" * 48)
 
+def calculate_shipping_menu(inventory):
+    print("\nCalculate Shipping Cost")
+
+    product_id = input("Enter Product ID: ")
+    product = inventory.search_product(product_id)
+
+    if product is None:
+        print("Product not found.")
+        return
+
+    if isinstance(product, CanBeShipped):
+        shipping_cost = product.calculate_shipping_cost()
+        print(f"Shipping Cost: ${shipping_cost:.2f}")
+    else:
+        print("This product does not require physical shipping.")
 
 def main():
     inventory = load_inventory()
@@ -133,8 +156,9 @@ def main():
         print("2. Add Product")
         print("3. Update Stock")
         print("4. Search Product")
-        print("5. Save Inventory")
-        print("6. Exit")
+        print("5. Calculate Shipping Cost")
+        print("6. Save Inventory")
+        print("7. Exit")
         print("----------------------------")
         option = input("Enter option: ")
         if option == "1":
@@ -146,9 +170,11 @@ def main():
         elif option == "4":
             search_product_menu(inventory)
         elif option == "5":
+            calculate_shipping_menu(inventory)
+        elif option == "6":
             print("Saving inventory...")
             save_inventory(inventory)
-        elif option == "6":
+        elif option == "7":
             print("Saving inventory before exit...")
             save_inventory(inventory)
             print("Thank you for using Inventory Management System.")

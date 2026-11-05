@@ -1,9 +1,14 @@
 from Product import Product
 
+
 class DigitalProduct(Product):
+    """A digital product with a downloadable file size."""
+
     def __init__(self, product_id, name, price, stock, download_size):
         super().__init__(product_id, name, price, stock)
-        self.__download_size = download_size
+        self.__download_size = float(download_size)
+        if self.__download_size < 0:
+            raise ValueError("Download size cannot be negative.")
 
     @property
     def download_size(self):
@@ -11,7 +16,13 @@ class DigitalProduct(Product):
 
     def display_information(self):
         super().display_information()
-        print(f"Weight: {self.__download_size:.2f} MB")
+        print(f"Download Size: {self.__download_size:.2f} MB")
 
     def get_fulfilment_info(self):
         return "This product is delivered digitally by download."
+
+    def to_dict(self):
+        data = super().to_dict()
+        data["type"] = "digital"
+        data["download_size"] = self.__download_size
+        return data

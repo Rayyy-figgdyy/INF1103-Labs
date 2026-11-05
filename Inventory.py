@@ -11,7 +11,7 @@ class Inventory:
             self.__transactions.append({
                 "type": "ADD",
                 "product_id": product.product_id,
-                "amount": product.stock
+                "amount": product.stock,
             })
         return True
 
@@ -29,7 +29,7 @@ class Inventory:
         self.__transactions.append({
             "type": "UPDATE",
             "product_id": product_id,
-            "amount": change
+            "amount": change,
         })
         return True
 
@@ -41,13 +41,15 @@ class Inventory:
         else:
             for product in self.__products:
                 product.display_information()
-        print("-" * 48)
+                print(product.get_fulfilment_info())
+                print("-" * 48)
+        if not self.__products:
+            print("-" * 48)
 
-    # convert object to dict
     def to_dict(self):
         return {
             "products": [product.to_dict() for product in self.__products],
-            "transactions": self.__transactions
+            "transactions": self.__transactions,
         }
 
     def load_transactions(self, transactions):
