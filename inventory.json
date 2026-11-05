@@ -35,6 +35,12 @@
             "name": "Laptop Stand",
             "price": 33.0,
             "stock": 120
+        },
+        {
+            "id": "P007",
+            "name": "Wired Earpiece (Type C)",
+            "price": 12.0,
+            "stock": 123
         }
     ],
     "transactions": [
@@ -77,6 +83,11 @@
             "type": "ADD",
             "product_id": "P006",
             "amount": 120
+        },
+        {
+            "type": "ADD",
+            "product_id": "P007",
+            "amount": 123
         }
     ]
 }

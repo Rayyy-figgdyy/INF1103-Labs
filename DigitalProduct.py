@@ -1,6 +1,6 @@
 from Product import Product
 
-class PhysicalProduct(Product):
+class DigitalProduct(Product):
     def __init__(self, product_id, name, price, stock, download_size):
         super().__init__(product_id, name, price, stock)
         self.__download_size = download_size
@@ -13,4 +13,5 @@ class PhysicalProduct(Product):
         super().display_information()
         print(f"Weight: {self.__download_size:.2f} MB")
 
-    
+    def get_fulfilment_info(self):
+        return "This product is delivered digitally by download."
