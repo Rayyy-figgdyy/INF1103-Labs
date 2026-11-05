@@ -6,7 +6,7 @@ class PhysicalProduct(Product):
         self.__weight = weight
 
     @property
-    def product_weight(self):
+    def weight(self):
         return self.__weight
 
     def display_information(self):
