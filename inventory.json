@@ -71,6 +71,14 @@
             "stock": 78,
             "type": "physical",
             "weight": 0.55
+        },
+        {
+            "id": "P010",
+            "name": "Cat Dancing Image",
+            "price": 2.0,
+            "stock": 69,
+            "type": "digital",
+            "download_size": 2.0
         }
     ],
     "transactions": [
@@ -128,6 +136,11 @@
             "type": "ADD",
             "product_id": "P009",
             "amount": 78
+        },
+        {
+            "type": "ADD",
+            "product_id": "P010",
+            "amount": 69
         }
     ]
 }
