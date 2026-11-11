@@ -1,14 +1,15 @@
 from abc import ABC, abstractmethod
-
+from Supplier import Supplier
 
 class Product(ABC):
     """Abstract base class for all inventory products."""
 
-    def __init__(self, product_id, name, price, stock):
+    def __init__(self, product_id: str, name: str, price: float, stock: int, supplier: Supplier):
         self.__product_id = product_id
         self.__name = name
         self.__price = float(price)
         self.__stock = int(stock)
+        self.__supplier: Supplier = supplier
         if self.__price < 0 or self.__stock < 0:
             raise ValueError("Price and stock cannot be negative.")
 
@@ -27,6 +28,10 @@ class Product(ABC):
     @property
     def stock(self):
         return self.__stock
+
+    @property
+    def supplier(self) -> Supplier:
+        return self.__supplier
 
     def update_stock(self, quantity):
         if quantity < 0:

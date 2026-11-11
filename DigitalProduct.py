@@ -1,11 +1,11 @@
 from Product import Product
-
+from Supplier import Supplier
 
 class DigitalProduct(Product):
     """A digital product with a downloadable file size."""
 
-    def __init__(self, product_id, name, price, stock, download_size):
-        super().__init__(product_id, name, price, stock)
+    def __init__(self, product_id: str, name: str, price: float, stock: int, download_size: float, supplier: Supplier):
+        super().__init__(product_id, name, price, stock, supplier)
         self.__download_size = float(download_size)
         if self.__download_size < 0:
             raise ValueError("Download size cannot be negative.")

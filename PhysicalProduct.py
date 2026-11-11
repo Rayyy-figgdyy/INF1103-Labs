@@ -1,12 +1,13 @@
 from Product import Product
 from CanBeShipped import CanBeShipped
+from Supplier import Supplier
 
 
 class PhysicalProduct(Product, CanBeShipped):
     """A physical product with weight-based shipping."""
 
-    def __init__(self, product_id, name, price, stock, weight):
-        super().__init__(product_id, name, price, stock)
+    def __init__(self, product_id: str, name: str, price: float, stock: int, weight: float, supplier: Supplier):
+        super().__init__(product_id, name, price, stock, supplier)
         self.__weight = float(weight)
         if self.__weight < 0:
             raise ValueError("Weight cannot be negative.")
