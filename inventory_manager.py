@@ -91,11 +91,6 @@ def add_product_menu(inventory):
     except ValueError as error:
         print(f"Invalid product information: {error}")
         return
-    
-    supplier_id = input("Supplier ID: ").strip()
-    supplier_name = input("Supplier Name: ").strip()
-    supplier_contact_email = input("Supplier Contact Email: ").strip()
-    supplier = Supplier(supplier_id, supplier_name, supplier_contact_email)
 
     if inventory.add_product(product):
         print("Product added successfully!")

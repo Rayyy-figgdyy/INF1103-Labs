@@ -1,7 +1,9 @@
+from Product import Product
+
 class Inventory:
     def __init__(self):
-        self.__products = []
-        self.__transactions = []
+        self.__products: list[Product] = []
+        self.__transactions: list[dict] = []
 
     def add_product(self, product, record_transaction=True):
         if self.search_product(product.product_id) is not None:
@@ -15,13 +17,22 @@ class Inventory:
             })
         return True
 
-    def search_product(self, product_id):
+    def remove_product(self, product_id: str) -> bool:
+        product = self.search_product(product_id)
+
+        if product is None:
+            return False
+
+        self.__products.remove(product)
+        return True
+
+    def search_product(self, product_id: str) -> Product | None:
         for product in self.__products:
             if product.product_id == product_id:
                 return product
         return None
 
-    def update_stock(self, product_id, quantity):
+    def update_stock(self, product_id: str, quantity: int):
         product = self.search_product(product_id)
         if product is None:
             return False
