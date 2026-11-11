@@ -5,7 +5,7 @@ class Inventory:
         self.__products: list[Product] = []
         self.__transactions: list[dict] = []
 
-    def add_product(self, product, record_transaction=True):
+    def add_product(self, product, record_transaction=True) -> bool:
         if self.search_product(product.product_id) is not None:
             return False
         self.__products.append(product)
@@ -32,7 +32,7 @@ class Inventory:
                 return product
         return None
 
-    def update_stock(self, product_id: str, quantity: int):
+    def update_stock(self, product_id: str, quantity: int) -> bool:
         product = self.search_product(product_id)
         if product is None:
             return False
@@ -44,7 +44,7 @@ class Inventory:
         })
         return True
 
-    def display_all(self):
+    def display_all(self) -> None:
         print("\nCurrent Inventory")
         print("-" * 48)
         if not self.__products:
@@ -57,11 +57,11 @@ class Inventory:
         if not self.__products:
             print("-" * 48)
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "products": [product.to_dict() for product in self.__products],
             "transactions": self.__transactions,
         }
 
-    def load_transactions(self, transactions):
+    def load_transactions(self, transactions) -> None:
         self.__transactions = list(transactions)

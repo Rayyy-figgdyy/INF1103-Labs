@@ -7,15 +7,15 @@ class Supplier():
         self.__contact_email = contact_email
 
     @property
-    def supplier_id(self):
+    def supplier_id(self) -> str:
         return self.__supplier_id
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self.__name
 
     @property
-    def price(self):
+    def contact_email(self) -> str:
         return self.__contact_email 
 
     def display_information(self) -> None:

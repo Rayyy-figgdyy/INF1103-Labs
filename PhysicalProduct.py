@@ -13,21 +13,21 @@ class PhysicalProduct(Product, CanBeShipped):
             raise ValueError("Weight cannot be negative.")
 
     @property
-    def weight(self):
+    def weight(self) -> float:
         return self.__weight
 
-    def display_information(self):
+    def display_information(self) -> float:
         super().display_information()
         print(f"Weight: {self.__weight:.2f} kg")
 
-    def get_fulfilment_info(self):
+    def get_fulfilment_info(self) -> str:
         return "This product requires physical shipping."
 
-    def calculate_shipping_cost(self):
+    def calculate_shipping_cost(self) -> float:
         # $2 per kg
         return self.__weight * 2.0
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         data = super().to_dict()
         data["type"] = "physical"
         data["weight"] = self.__weight
