@@ -7,7 +7,11 @@ from CanBeShipped import CanBeShipped
 from Supplier import Supplier
 
 INVENTORY_FILE = "inventory.json"
-
+default_supplier = Supplier(
+    supplier_id = "S000",
+    name = "Unknown Supplier",
+    contact_email = "Unknown@example.com"
+)
 
 def load_inventory():
     inventory = Inventory()
@@ -20,6 +24,16 @@ def load_inventory():
 
         for item in data.get("products", []):
 
+            supplier_data = item.get("supplier")
+            if supplier_data is None:
+                supplier = default_supplier
+            else:
+                supplier = Supplier(
+                    supplier_id = supplier_data["supplier_id"],
+                    name = supplier_data["supplier_name"],
+                    contact_email = supplier_data["contact_email"]
+                )
+
             product_type = item.get("type", "physical")
 
             if product_type == "physical":
@@ -28,7 +42,8 @@ def load_inventory():
                     item["name"],
                     item["price"],
                     item["stock"],
-                    item.get("weight", 0.0)
+                    item.get("weight", 0.0),
+                    supplier
                 )
 
             elif product_type == "digital":
@@ -37,7 +52,8 @@ def load_inventory():
                     item["name"],
                     item["price"],
                     item["stock"],
-                    item.get("download_size", 0.0)
+                    item.get("download_size", 0.0),
+                    supplier
                 )
 
             else:
@@ -72,30 +88,48 @@ def add_product_menu(inventory):
     print("\nAdd New Product")
     print("1. Physical Product")
     print("2. Digital Product")
+    print("3. Back")
     product_type = input("Select product type: ").strip()
-    if product_type not in ("1", "2"):
+    if product_type in ("1", "2"):
+        product_id = input("Product ID: ").strip()
+        product_name = input("Product Name: ").strip()
+        supplier_id = input("Supplier ID: ").strip()
+        supplier_name = input("Supplier Name: ").strip()
+        supplier_contact_email = input("Supplier Contact Email: ").strip()
+        supplier = Supplier(supplier_id, supplier_name, supplier_contact_email)  
+        try:
+            price = float(input("Price: "))
+            stock = int(input("Stock Quantity: "))
+            if product_type == "1":
+                weight = float(input("Weight (kg): "))
+                product = PhysicalProduct(product_id, product_name, price, stock, weight, supplier)
+            else:
+                download_size = float(input("Download Size (MB): "))
+                product = DigitalProduct(product_id, product_name, price, stock, download_size, supplier)
+        except ValueError as error:
+            print(f"Invalid product information: {error}")
+            return
+
+        if inventory.add_product(product):
+            print("Product added successfully!")
+        else:
+            print("Product ID already exists.")
+
+    elif product_type == "3":
+        return
+
+    else:
         print("Invalid product type.")
         return
 
-    product_id = input("Product ID: ").strip()
-    product_name = input("Product Name: ").strip()
-    try:
-        price = float(input("Price: "))
-        stock = int(input("Stock Quantity: "))
-        if product_type == "1":
-            weight = float(input("Weight (kg): "))
-            product = PhysicalProduct(product_id, product_name, price, stock, weight)
-        else:
-            download_size = float(input("Download Size (MB): "))
-            product = DigitalProduct(product_id, product_name, price, stock, download_size)
-    except ValueError as error:
-        print(f"Invalid product information: {error}")
-        return
 
-    if inventory.add_product(product):
-        print("Product added successfully!")
+def remove_product_menu(inventory):
+    print("\nRemove Product")
+    product_id = input("Enter Product ID: ").strip()
+    if inventory.remove_product(product_id):
+        print("Product removed successfully!")
     else:
-        print("Product ID already exists.")
+        print("Product not found.")
 
 
 def update_stock_menu(inventory):
@@ -159,7 +193,8 @@ def main():
         print("4. Search Product")
         print("5. Calculate Shipping Cost")
         print("6. Save Inventory")
-        print("7. Exit")
+        print("7. Remove Product")
+        print("8. Exit")
         print("----------------------------")
         option = input("Enter option: ")
         if option == "1":
@@ -176,6 +211,8 @@ def main():
             print("Saving inventory...")
             save_inventory(inventory)
         elif option == "7":
+            remove_product_menu(inventory)
+        elif option == "8":
             print("Saving inventory before exit...")
             save_inventory(inventory)
             print("Thank you for using Inventory Management System.")

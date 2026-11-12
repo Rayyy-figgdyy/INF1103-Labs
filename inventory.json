@@ -5,6 +5,11 @@
             "name": "Laptop",
             "price": 1500.0,
             "stock": 30,
+            "supplier": {
+                "supplier_id": "S000",
+                "supplier_name": "Unknown Supplier",
+                "contact_email": "Unknown@example.com"
+            },
             "type": "physical",
             "weight": 0.0
         },
@@ -13,6 +18,11 @@
             "name": "Mouse",
             "price": 35.5,
             "stock": 50,
+            "supplier": {
+                "supplier_id": "S000",
+                "supplier_name": "Unknown Supplier",
+                "contact_email": "Unknown@example.com"
+            },
             "type": "physical",
             "weight": 0.0
         },
@@ -21,6 +31,11 @@
             "name": "Keyboard",
             "price": 79.99,
             "stock": 60,
+            "supplier": {
+                "supplier_id": "S000",
+                "supplier_name": "Unknown Supplier",
+                "contact_email": "Unknown@example.com"
+            },
             "type": "physical",
             "weight": 0.0
         },
@@ -29,6 +44,11 @@
             "name": "Headphone",
             "price": 129.0,
             "stock": 50,
+            "supplier": {
+                "supplier_id": "S000",
+                "supplier_name": "Unknown Supplier",
+                "contact_email": "Unknown@example.com"
+            },
             "type": "physical",
             "weight": 0.0
         },
@@ -37,6 +57,11 @@
             "name": "USB-C Cable",
             "price": 15.0,
             "stock": 85,
+            "supplier": {
+                "supplier_id": "S000",
+                "supplier_name": "Unknown Supplier",
+                "contact_email": "Unknown@example.com"
+            },
             "type": "physical",
             "weight": 0.0
         },
@@ -45,6 +70,11 @@
             "name": "Laptop Stand",
             "price": 33.0,
             "stock": 120,
+            "supplier": {
+                "supplier_id": "S000",
+                "supplier_name": "Unknown Supplier",
+                "contact_email": "Unknown@example.com"
+            },
             "type": "physical",
             "weight": 0.0
         },
@@ -53,6 +83,11 @@
             "name": "Wired Earpiece (Type C)",
             "price": 12.0,
             "stock": 123,
+            "supplier": {
+                "supplier_id": "S000",
+                "supplier_name": "Unknown Supplier",
+                "contact_email": "Unknown@example.com"
+            },
             "type": "physical",
             "weight": 0.0
         },
@@ -61,6 +96,11 @@
             "name": "Cat Sleeping Image",
             "price": 2.0,
             "stock": 67,
+            "supplier": {
+                "supplier_id": "S000",
+                "supplier_name": "Unknown Supplier",
+                "contact_email": "Unknown@example.com"
+            },
             "type": "digital",
             "download_size": 1.0
         },
@@ -69,6 +109,11 @@
             "name": "Phone Cooler",
             "price": 50.0,
             "stock": 78,
+            "supplier": {
+                "supplier_id": "S000",
+                "supplier_name": "Unknown Supplier",
+                "contact_email": "Unknown@example.com"
+            },
             "type": "physical",
             "weight": 0.55
         },
@@ -77,6 +122,24 @@
             "name": "Cat Dancing Image",
             "price": 2.0,
             "stock": 69,
+            "supplier": {
+                "supplier_id": "S000",
+                "supplier_name": "Unknown Supplier",
+                "contact_email": "Unknown@example.com"
+            },
+            "type": "digital",
+            "download_size": 2.0
+        },
+        {
+            "id": "P011",
+            "name": "Dog Barking Audio",
+            "price": 3.0,
+            "stock": 900,
+            "supplier": {
+                "supplier_id": "S001",
+                "supplier_name": "Kelvin",
+                "contact_email": "kelv123@gmail.com"
+            },
             "type": "digital",
             "download_size": 2.0
         }
@@ -141,6 +204,16 @@
             "type": "ADD",
             "product_id": "P010",
             "amount": 69
+        },
+        {
+            "type": "ADD",
+            "product_id": "P011",
+            "amount": 900
+        },
+        {
+            "type": "ADD",
+            "product_id": "P012",
+            "amount": 12
         }
     ]
 }

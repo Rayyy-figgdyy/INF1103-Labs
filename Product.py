@@ -42,10 +42,10 @@ class Product(ABC):
 
     def display_information(self) -> None:
         print(
-            f"ID: {self.__product_id} | "
-            f"Name: {self.__name} | "
+            f"Product ID: {self.__product_id} | "
+            f"Product Name: {self.__name} | "
             f"Price: ${self.__price:.2f} | "
-            f"Stock: {self.__stock}"
+            f"Stock: {self.__stock} | "
         )
 
     @abstractmethod
@@ -59,4 +59,9 @@ class Product(ABC):
             "name": self.__name,
             "price": self.__price,
             "stock": self.__stock,
+            "supplier": {
+                "supplier_id": self.__supplier.supplier_id,
+                "supplier_name": self.__supplier.name,
+                "contact_email": self.__supplier.contact_email
+            }
         }

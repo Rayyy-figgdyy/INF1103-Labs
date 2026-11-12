@@ -19,6 +19,8 @@ class PhysicalProduct(Product, CanBeShipped):
     def display_information(self) -> float:
         super().display_information()
         print(f"Weight: {self.__weight:.2f} kg")
+        print("---Supplier Information---")
+        self.supplier.display_information()
 
     def get_fulfilment_info(self) -> str:
         return "This product requires physical shipping."

@@ -24,6 +24,11 @@ class Inventory:
             return False
 
         self.__products.remove(product)
+        self.__transactions.append({
+                "type": "REMOVE",
+                "product_id": product.product_id,
+                "amount": product.stock,
+            })
         return True
 
     def search_product(self, product_id: str) -> Product | None:

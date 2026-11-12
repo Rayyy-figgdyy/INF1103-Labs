@@ -17,6 +17,8 @@ class DigitalProduct(Product):
     def display_information(self) -> None:
         super().display_information()
         print(f"Download Size: {self.__download_size:.2f} MB")
+        print("---Supplier Information---")
+        self.supplier.display_information()
 
     def get_fulfilment_info(self) -> str:
         return "This product is delivered digitally by download."
