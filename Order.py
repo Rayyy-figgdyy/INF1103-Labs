@@ -1,10 +1,13 @@
 from Product import Product
 from OrderLine import OrderLine
+from DiscountStrategy import DiscountStrategy
+from NoDiscount import NoDiscount
 
 class Order:
-    def __init__(self, order_id: str):
+    def __init__(self, order_id: str, discount: DiscountStrategy | None = None):
         self.__order_id: str = order_id
         self.__order_lines: list[OrderLine] = []
+        self.__discount = discount if discount is not None else NoDiscount()
 
     @property
     def order_id(self) -> tuple[str]:
@@ -31,4 +34,7 @@ class Order:
         for order_line in self.__order_lines:
             total += order_line.calculate_subtotal()
 
-        return total
+        return self.__discount.apply(total)
+
+    def set_discount(self, discount: DiscountStrategy) -> None:
+        self.__discount = discount
