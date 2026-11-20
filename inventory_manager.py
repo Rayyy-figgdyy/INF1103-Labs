@@ -1,3 +1,4 @@
+import csv
 import json
 import os
 from Inventory import Inventory
@@ -66,6 +67,41 @@ def load_inventory():
         print("Starting with empty inventory.")
 
     return inventory
+
+
+def load_products(path: str, inventory: Inventory, supplier: Supplier) -> None:
+    try:
+        file = open(path, newline="", encoding="utf-8-sig")
+    except FileNotFoundError:
+        print(f"Products file not found: {path}")
+    else:
+        loaded = 0
+        with file:
+            reader = csv.reader(file)
+            next(reader, None)  # Skip the header row.
+            for row_number, row in enumerate(reader, start=2):
+                try:
+                    product_type, product_id, name, price, stock_quantity = row
+                    product = ProductFactory.create(
+                        product_type=product_type.strip(),
+                        product_id=product_id.strip(),
+                        name=name.strip(),
+                        price=float(price),
+                        stock_quantity=int(stock_quantity),
+                        supplier=supplier
+                    )
+                except ValueError as error:
+                    print(f"Skipping row {row_number}: {error}")
+                    continue
+
+                if inventory.add_product(product):
+                    loaded += 1
+                else:
+                    print(f"Skipping row {row_number}: Product ID already exists.")
+
+        print(f"{loaded} products loaded.")
+    finally:
+        print("Load attempt finished.")
 
 
 def save_inventory(inventory):
