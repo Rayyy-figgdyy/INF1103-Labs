@@ -74,6 +74,21 @@ def save_inventory(inventory):
     print("Inventory saved successfully to inventory.json.")
 
 
+def get_positive_float(prompt: str) -> float:
+    while True:
+        try:
+            value = float(input(prompt))
+
+            if value <= 0:
+                print("Please enter a number greater than zero.")
+                continue
+
+            return value
+
+        except ValueError:
+            print("Please enter a valid number, e.g. 12.50")
+
+
 def add_product_menu(inventory):
     print("\nAdd New Product")
     print("1. Physical Product")
@@ -88,7 +103,7 @@ def add_product_menu(inventory):
         supplier_contact_email = input("Supplier Contact Email: ").strip()
         supplier = Supplier(supplier_id, supplier_name, supplier_contact_email)  
         try:
-            price = float(input("Price: "))
+            price = get_positive_float("Price: ")
             stock = int(input("Stock Quantity: "))
             if product_type == "1":
                 weight = float(input("Weight (kg): "))
