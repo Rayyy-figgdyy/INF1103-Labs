@@ -10,8 +10,10 @@ class Product(ABC):
         self.__price = float(price)
         self.__stock = int(stock)
         self.__supplier: Supplier = supplier
-        if self.__price < 0 or self.__stock < 0:
-            raise ValueError("Price and stock cannot be negative.")
+        if self.__price <= 0:
+            raise ValueError("Price must be greater than zero.")
+        if self.__stock < 0:
+            raise ValueError("Stock cannot be negative.")
 
     @property
     def product_id(self) -> str:
