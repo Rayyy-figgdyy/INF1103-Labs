@@ -1,8 +1,7 @@
 import json
 import os
 from Inventory import Inventory
-from PhysicalProduct import PhysicalProduct
-from DigitalProduct import DigitalProduct
+from ProductFactory import ProductFactory
 from CanBeShipped import CanBeShipped
 from Supplier import Supplier
 
@@ -36,28 +35,19 @@ def load_inventory():
 
             product_type = item.get("type", "physical")
 
-            if product_type == "physical":
-                product = PhysicalProduct(
-                    item["id"],
-                    item["name"],
-                    item["price"],
-                    item["stock"],
-                    item.get("weight", 0.0),
-                    supplier
+            try:
+                product = ProductFactory.create(
+                    product_type=product_type,
+                    product_id=item["id"],
+                    name=item["name"],
+                    price=item["price"],
+                    stock_quantity=item["stock"],
+                    supplier=supplier,
+                    weight=item.get("weight", 0.0),
+                    download_size=item.get("download_size", 0.0)
                 )
-
-            elif product_type == "digital":
-                product = DigitalProduct(
-                    item["id"],
-                    item["name"],
-                    item["price"],
-                    item["stock"],
-                    item.get("download_size", 0.0),
-                    supplier
-                )
-
-            else:
-                print(f"Unknown product type: {product_type}")
+            except ValueError as error:
+                print(f"Invalid product information: {error}")
                 continue
 
             inventory.add_product(
@@ -102,10 +92,16 @@ def add_product_menu(inventory):
             stock = int(input("Stock Quantity: "))
             if product_type == "1":
                 weight = float(input("Weight (kg): "))
-                product = PhysicalProduct(product_id, product_name, price, stock, weight, supplier)
+                product = ProductFactory.create(
+                    "physical", product_id, product_name, price, stock,
+                    supplier, weight=weight
+                )
             else:
                 download_size = float(input("Download Size (MB): "))
-                product = DigitalProduct(product_id, product_name, price, stock, download_size, supplier)
+                product = ProductFactory.create(
+                    "digital", product_id, product_name, price, stock,
+                    supplier, download_size=download_size
+                )
         except ValueError as error:
             print(f"Invalid product information: {error}")
             return
